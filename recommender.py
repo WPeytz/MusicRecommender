@@ -74,6 +74,13 @@ class Recommender:
         )
         possibility_df = possibility_df[mask]
 
+        if len(possibility_df) == 0:
+            # If no valid input tracks, return random recommendations
+            artist_songs = self.df[self.df["artists"].isin(target_artist)]
+            if len(artist_songs) >= n_recommendations:
+                return artist_songs.sample(n_recommendations)["track_id"].tolist()
+            return self.df.sample(n_recommendations)["track_id"].tolist()
+
         model = self.weighted_knn_fit(
             possibility_df[
                 self.clustering_columns
