@@ -1,4 +1,4 @@
-# from evaluation import evaluate
+from evaluation import evaluate
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 import numpy as np
@@ -59,10 +59,10 @@ class Recommender:
 
         for col in self.trend_follower_columns:
             value = self.rolling_next_value(track_df[col].values)
-            playlist_clustering_df.loc[col] = {"value": value, "weight": 0.5}
+            playlist_clustering_df.loc[col] = {"value": value, "weight": 0.3}
 
         for col in self.custom_columns:
-            playlist_clustering_df.loc[col] = {"value": 1, "weight": 0.25}
+            playlist_clustering_df.loc[col] = {"value": 1, "weight": 0.4}
 
         mask = self.df["artists"].apply(
             lambda artists: bool(set(artists) & target_artist)
@@ -73,8 +73,6 @@ class Recommender:
             lambda track_id: bool(track_id not in input_track_ids)
         )
         possibility_df = possibility_df[mask]
-
-        print(playlist_clustering_df)
 
         model = self.weighted_knn_fit(
             possibility_df[
@@ -92,9 +90,7 @@ class Recommender:
             playlist_clustering_df["value"],
         )
 
-        print(distances)
-
-        return possibility_df.iloc[indices]
+        return possibility_df.iloc[indices]["track_id"].to_list()
 
         # return recommended_track_ids
 
@@ -136,7 +132,7 @@ class Recommender:
         return next_value
 
 
-# recommender = Recommender()
+recommender = Recommender()
 
-# results = evaluate(recommender)
-# print(results)
+results = evaluate(recommender)
+print(results)
