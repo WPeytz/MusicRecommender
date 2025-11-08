@@ -6,7 +6,7 @@ def main():
 
     r = Recommender()
 
-    df = r.get_recommendations([], 5, set(['ZAYN', 'Sam Smith']))
+    df = r.get_recommendations(['67l8nACchnc7Mq9LP6XqNz', '62PQEEbjT0MfZAHv5rLeKk'], 5, set(['ZAYN', 'Sam Smith']))
 
     print(df)
 
