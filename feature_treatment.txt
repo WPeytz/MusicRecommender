@@ -1,0 +1,49 @@
+Output:
+
+track_id
+
+Booster:
+
+We give an extra value if they already appear in the playlist.
+
+artists - nominal
+album_name - nominal
+track_genre - nominal
+popularity - numeric 0-100
+
+Clustering:
+
+If the values are close together, make it more important, by having a lower distance in the final KNN
+
+danceability - 0.0-1.0
+energy - 0.0-1.0
+
+speechiness - 0.0 - 1.0
+acousticness - 0.0 - 1.0
+instrumentalness - 0.0 - 1.0
+
+Strict booster:
+Only recommend if all the other songs fit
+
+explicit - t/f
+liveness t/f at around 0.8
+
+Trend Follower:
+We observe how it changes over the array, and make the next assumption
+
+loudness - -x - +x
+valence - 0.1 - 1.0
+
+
+tempo - 0 - x
+
+Trend follower final:
+We take the last song from the playlist
+
+tempo
+
+Irrelevant:
+
+track name
+
+duration - ?
