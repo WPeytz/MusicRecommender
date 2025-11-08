@@ -6,7 +6,6 @@ Booster:
 
 We give an extra value if they already appear in the playlist.
 
-artists - nominal
 album_name - nominal
 track_genre - nominal
 popularity - numeric 0-100
