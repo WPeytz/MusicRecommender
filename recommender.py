@@ -56,6 +56,12 @@ class Recommender:
         )
         possibility_df = self.df[mask]
 
+        mask = possibility_df["track_id"].apply(
+            lambda track_id: bool(track_id not in input_track_ids)
+        )
+        possibility_df = possibility_df[mask]
+
+
         model = self.weighted_knn_fit(
             possibility_df[self.clustering_columns],
             playlist_clustering_df["weight"],
