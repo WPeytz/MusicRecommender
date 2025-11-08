@@ -62,13 +62,15 @@ class Recommender:
             n_recommendations,
         )
 
-        result = self.query_weighted_knn(
+        distances, indices = self.query_weighted_knn(
             model,
             playlist_clustering_df["weight"],
             self.df[self.clustering_columns].iloc[10],
         )
 
-        return result
+        print(indices)
+
+        return possibility_df.iloc[indices]
 
         # return recommended_track_ids
 
@@ -100,7 +102,9 @@ class Recommender:
     ):
         q_weighted = query * np.sqrt(feature_weights.values)
 
-        return model.kneighbors([q_weighted])
+        distances, indices = model.kneighbors([q_weighted])
+
+        return distances[0], indices[0]
 
 
 # recommender = Recommender()
